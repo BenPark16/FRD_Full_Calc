@@ -724,6 +724,12 @@ function addToDex(poke) {
 	}
 
 
+		console.log(`${poke.name} - ${parseInt(poke.ability)}`)
+	console.log(pokedex[poke.name]['abilities'][parseInt(poke.ability)])
+
+	if (isInt(poke.ability)) {
+		console.log("ability updated")
+		dexObject.ability = pokedex[poke.name]['abilities'][parseInt(poke.ability)]
 	}
 	
 

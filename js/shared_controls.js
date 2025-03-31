@@ -431,8 +431,7 @@ $(".move-selector").change(function () {
 		}
 
 		var actual = calc.Stats.getHiddenPower(GENERATION, pokemon.ivs, trueHP);
-		console.log(actual)
-		if (actual.type !== m[1]) {
+		if (false) {
 			var hpIVs = calc.Stats.getHiddenPowerIVs(GENERATION, m[1]);
 			if (hpIVs && gen < 7) {
 				for (var i = 0; i < LEGACY_STATS[gen].length; i++) {
@@ -518,7 +517,7 @@ function refresh_next_in() {
 	console.log("refreshing next in " + lastSetName)
 	var next_poks = get_next_in()
 
-	if (damageGen < 8 && !TITLE.includes("Lumi") && damageGen != 1) {
+	if (damageGen < 7 && !TITLE.includes("Lumi") && damageGen != 1) {
         $("#p2 .evs, #p2 .ev-label").hide()
 
     }
@@ -569,7 +568,6 @@ function refresh_next_in() {
 
 		var isLead = ""
 
-		console.log(next_poks[i][0])
 		if (next_poks[i][0].includes("[0]")) {
 			isLead = "lead"
 		}
@@ -629,6 +627,7 @@ $(".set-selector").change(function () {
 			if (setName != "Blank Set") {
 				// var sprite = SETDEX_BW[pokemonName][setName]["sprite"]
 				
+
 				var battle_type = SETDEX_BW[pokemonName][setName]["battle_type"]
 				var ai = SETDEX_BW[pokemonName][setName]["ai"]
 				var next = SETDEX_BW[pokemonName][setName]["next"]
@@ -743,9 +742,6 @@ $(".set-selector").change(function () {
 
 
 	var pokemon = pokedex[pokemonName];
-
-
-	console.log(pokemon)
 
 
 	if (pokemon) {
@@ -1124,8 +1120,6 @@ function createPokemon(pokeInfo, customMoves=false, ignoreStatMods=false) {
 			for (var i = 0; i < LEGACY_STATS[gen].length; i++) {
 				var stat = legacyStatToStat(LEGACY_STATS[gen][i]);
 				
-				console.log(stat)
-				console.log(pokedex['Rotom']['bs'][stat_abvs[stat]]) 
 				baseStats[stat === 'spc' ? 'spa' : stat] = pokedex['Rotom']['bs'][stat_abvs[stat]];
 				~~pokeInfo.find("." + LEGACY_STATS[gen][i] + " .base").val(pokedex['Rotom']['bs'][stat_abvs[stat]])
 				ivs[stat] = gen > 2 ? ~~pokeInfo.find("." + LEGACY_STATS[gen][i] + " .ivs").val() : ~~pokeInfo.find("." + LEGACY_STATS[gen][i] + " .dvs").val() * 2 + 1;
@@ -1255,6 +1249,7 @@ function createField() {
 	var gameType = $("input:radio[name='format']:checked").val();
 	var isMagicRoom = $("#magicroom").prop("checked");
 	var isWonderRoom = $("#wonderroom").prop("checked");
+	var isInverseBattle = $("#inverse").prop("checked");
 	var isGravity = $("#gravity").prop("checked");
 	var isSR = [$("#srL").prop("checked"), $("#srR").prop("checked")];
 	var weather;
@@ -1301,7 +1296,7 @@ function createField() {
 
 	var createSide = function (i) {
 		return new calc.Side({
-			spikes: spikes[i], isSR: isSR[i], steelsurge: steelsurge[i],
+			spikes: spikes[i], isSR: isSR[i], steelsurge: steelsurge[i], 
 			vinelash: vinelash[i], wildfire: wildfire[i], cannonade: cannonade[i], volcalith: volcalith[i],
 			isReflect: isReflect[i], isLightScreen: isLightScreen[i],
 			isProtected: isProtected[i], isSeeded: isSeeded[i], isForesight: isForesight[i], isFlowerGift: isFlowerGift[i],
@@ -1309,9 +1304,8 @@ function createField() {
 			isAuroraVeil: isAuroraVeil[i], isBattery: isBattery[i], isPowerSpot: isPowerSpot[i], isSwitching: isSwitchingOut[i], is10Buff: is10Buff[i], is15Buff: is15Buff[i], is20Buff: is20Buff[i], is25Buff: is25Buff[i], is30Buff: is30Buff[i], is50Buff: is50Buff[i] ? 'out' : undefined
 		});
 	};
-	// console.log(is10Buff)
 	return new calc.Field({
-		gameType: gameType, weather: weather, terrain: terrain, isMagicRoom: isMagicRoom, isWonderRoom: isWonderRoom, isGravity: isGravity,
+		gameType: gameType, weather: weather, terrain: terrain, isMagicRoom: isMagicRoom, isWonderRoom: isWonderRoom, isGravity: isGravity, isInverseBattle: isInverseBattle,
 		attackerSide: createSide(0), defenderSide: createSide(1)
 	});
 }

@@ -62,7 +62,6 @@ var RBY = {
     Conversion: { bp: 0, category: 'Status', type: 'Normal' },
     Counter: { bp: 1, type: 'Fighting' },
     Crabhammer: { bp: 90, type: 'Water' },
-    'D. Iron Bash': {bp: 95, type 'Steel'},
     'Defense Curl': { bp: 0, category: 'Status', type: 'Normal' },
     Dig: { bp: 100, type: 'Ground' },
     Disable: { bp: 0, category: 'Status', type: 'Normal' },
